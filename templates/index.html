@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="../static/css/news.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+    <link rel="stylesheet" href="../static/css/news_popup.css">
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        </div>
+        <ul class="navbar-links">
+            <li><a href="#" id="newsLink" >News</a></li>
+            <li><a href="#" id="chatbot-open-btn" class="open-chatbot-btn">Weather GPT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Video Background -->
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', filename='videos/index.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        
+
+        <!-- Weather Information -->
+        {% if weather %}
+        <!-- Temperature Container -->
+        <div class="weather-container">
+            <div class="weather-header">
+                <div>
+                    <!-- Replace Ho Chi Minh with location form -->
+                    <form method="POST" class="location-form">
+                        <select name="location" class="location-select">
+                            <option value="Ho Chi Minh" {% if weather['location'] == 'Ho Chi Minh' %}selected{% endif %}>Ho Chi Minh</option>
+                            <option value="Hanoi" {% if weather['location'] == 'Hanoi' %}selected{% endif %}>Hanoi</option>
+                            <option value="Da Nang" {% if weather['location'] == 'Da Nang' %}selected{% endif %}>Da Nang</option>
+                            <option value="Can Tho" {% if weather['location'] == 'Can Tho' %}selected{% endif %}>Can Tho</option>
+                            <option value="Nha Trang" {% if weather['location'] == 'Nha Trang' %}selected{% endif %}>Nha Trang</option>
+                        </select>
+                        <button type="submit" class="get-started-btn">Get Started</button>
+                    </form>
+                    
+                    <div class="weather-temperature">{{ weather['temperature'] }}°C</div>
+                </div>
+                <div class="weather-details">
+                    <div>Wind speed: {{ weather['windspeed'] }} km/h</div>
+                    <div>Day/Night: {{ 'Day' if weather['is_day'] == 1 else 'Night' }}</div>
+                    <div class="rainprobability">Rain probability: {{ weather['precipitation_probability'] }}%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Weather Info Container -->
+        <div class="additional-info-container">
+            <div class="info-box">
+                <div>Cloud Cover (hourly)</div>
+                <div>{{ weather['cloud_cover'] }}%</div>
+            </div>
+            <div class="info-box">
+                <div>Shower (hourly)</div>
+                <div>{{ weather['showers'] }} mm/h</div>
+            </div>
+            <div class="info-box">
+                <div>Precipitation (hourly)</div>
+                <div>{{ weather['precipitation'] }} mm/h</div>
+            </div>
+            <div class="info-box">
+                <div>Humidity (hourly)</div>
+                <div>{{ weather['humidity'] }}%</div>
+            </div>
+        </div>
+
+        <!-- Predicted Precipitation Chart -->
+        <div class="predicted-precipitation-chart-container">
+            <h2 style="text-align: center; color: white;">Predicted Precipitation for the Next 14 Days</h2>
+            <div class="predicted-precipitation-chart">
+                {% if pred_data %}
+                <iframe src="/dash/?data={{ pred_data | tojson | safe }}" width="100%" height="500px" style="border:none; background-color: transparent;"></iframe>
+                {% else %}
+                <iframe src="/dash/" width="100%" height="500px" style="border:none; background-color: transparent;"></iframe>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="rain-probability-chart-container">
+            <div class="rain-probability-chart">
+                <iframe src="/dash_rain_probability/" width="100%" height="600px" style="border:none; background-color: transparent;"></iframe>
+            </div>
+            <div class="rain-probability-chart">
+                <iframe src="/dash_rain_sum/" width="100%" height="600px" style="border:none; background-color: transparent;"></iframe>
+            </div>
+        </div>
+        <!-- Temperature map -->
+        <div class="temperature-map-container">
+            <h2 style="text-align: center; color: white;">Temperature Map</h2>
+            <div class="temperature-map">
+                <iframe src="/temperature_map/" width="100%" height="500px" style="border:none; background-color: transparent;"></iframe>
+            </div>
+        </div>
+
+        {% endif %}
+    </div>
+    <!-- Include Popup HTML -->
+    {% include 'chatbot_popup.html' %}
+    {% include 'news_popup.html' %}
+    <!-- News end -->
+        <!-- footer start -->
+    <footer id="footer">
+        <div class="footer_box">
+            <p>© Copyright 2024</p>
+            <p>Developed with dedication at RMIT University.</p>
+            <p>This website is intended solely for educational purposes and is not for commercial purposes.</p>
+            <p><a style="text-decoration: none; color: white;" href="#About">About Us</a> | <a style="text-decoration: none; color: white;" href="#privacy">Privacy Policy</a> | <a style="text-decoration: none; color: white;" href="#term">Terms of Service</a></p>
+        </div>
+    </footer>
+    {% include 'footer_popup.html' %}
+    {% include 'popup_slider.html' %}
+    <!-- Link to JavaScript -->
+    <script src="{{ url_for('static', filename='js/chatbot_popup.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/news_popup.js') }}"></script>  
+    <script>
+        const swiper = new Swiper('.swiper', {
+    // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+
+    // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+    // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+    <script>
+        const swiper1 = new Swiper('.slider', {
+      // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+    
+    
+      // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+    
+      // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+    
+      // And if we need scrollbar
+            // scrollbar: {
+            //     el: '.swiper-scrollbar',
+            // },
+        });
+    </script>
+</body>
+</html>
+

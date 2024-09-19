@@ -1,0 +1,35 @@
+[
+    {
+      "questions": [
+        "How hot is Ho Chi Minh?",
+        "What is the temperature in Ho Chi Minh?",
+        "What is the temperature in Ho Chi Minh City now?",
+        "How hot is ha noi ?",
+        "How hot is ha noii ?",
+        "how hot is in Ha noii?",
+        "how hot is in ha noii ?"
+      ],
+      "weather_type": "temperature"
+    },
+    {
+      "questions": [
+        "How rainy is it in London?",
+        "What is the rain probability in London?",
+        "Is it going to rain in London?"
+      ],
+      "weather_type": "rain"
+    },
+    {
+      "questions": [
+        "How is the rain and temperature in Hanoi?",
+        "What is the temperature and rain probability in Hanoi?"
+      ],
+      "weather_type": ["temperature", "rain"] 
+    },
+    {
+      "questions": [
+        "what is the weather in marid ?"
+      ],
+      "weather_type": "all"
+    }
+]

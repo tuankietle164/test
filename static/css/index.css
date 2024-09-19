@@ -1,0 +1,357 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}
+
+.main-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+/* Weather Container */
+.weather-container {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 50px;
+    border-radius: 15px;
+    width: 1100px;
+    margin: 30px auto;
+    text-align: left;
+    z-index: 1;
+    margin-top: 65px;
+}
+
+.weather-header h2 {
+    font-size: 40px;
+}
+
+.weather-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weather-temperature {
+    font-size: 70px;
+    font-weight: bold;
+    color: #FFA500;
+}
+
+.weather-details {
+    font-size: 30px;
+    line-height: 1.8;
+}
+
+/* Location Form Styling */
+.location-form {
+    display: flex;
+    align-items: center;
+}
+
+.location-select {
+    font-size: 40px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.location-select option {
+    background-color: black;
+    color: white;
+}
+
+.get-started-btn {
+    font-size: 25px;
+    background-color: #FFA500;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.get-started-btn:hover {
+    background-color: #FF8C00;
+}
+
+/* Additional Weather Info Container */
+.additional-info-container {
+    background: rgba(112, 112, 112, 0.5);
+    color: white;
+    border-radius: 15px;
+    width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 20px;
+}
+
+.info-box {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    width: 22%;
+    padding: 20px;
+}
+
+.info-box div {
+    font-size: 30px;
+}
+
+/* Predicted Precipitation Chart */
+.predicted-precipitation-chart {
+    overflow: hidden;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.predicted-precipitation-chart-container {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 50px;
+    border-radius: 15px;
+    width: 1100px;
+    margin: 30px auto;
+    text-align: left;
+    z-index: 1;
+}
+
+.rain-probability-chart-container {
+    width: 1100px;
+    margin: 0 auto;
+    padding: 20px 0;
+    display: flex;
+}
+
+.rain-probability-chart {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 10px;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #898484b5;
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.navbar-logo img {
+    height: 50px;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.navbar-links li {
+    display: inline;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    display: block;
+}
+
+.navbar-links a:hover {
+    background-color: #333;
+    border-radius: 5px;
+    transition: background-color 0.5s ease;
+}
+
+/* Styles for Chat Bot Popup */
+.chatbot-popup {
+    display: none; /* Hidden by default, mở khi nhấn vào nút mở */
+    position: fixed;
+    width: 800px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Căn giữa theo cả chiều ngang và dọc */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.chatbot-popup-header {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-popup-header h3 {
+    justify-content: center;
+    margin: 0;
+}
+
+.chatbot-close-btn {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.chatbot-popup-content {
+    padding: 10px;
+    height: calc(100% - 50px); /* Adjust height to fit the content */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chatbot-messages {
+    height: 85%;
+    overflow-y: auto;
+    padding-right: 5px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hiệu ứng cho tin nhắn */
+@keyframes slide-in-right {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-left {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Hiệu ứng cho tin nhắn mới gửi */
+.message-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+}
+
+/* Hiệu ứng cho tin nhắn bot */
+.message-slide-in-left {
+    animation: slide-in-left 0.5s ease-out;
+}
+
+/* Tin nhắn của người dùng */
+.user-message {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    align-self: flex-end; /* Tin nhắn của người dùng nằm bên phải */
+    text-align: right;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    margin: 5px 0;
+}
+
+/* Tin nhắn của bot */
+.bot-message {
+    background-color: #f1f1f1;
+    color: black;
+    align-self: flex-start; /* Tin nhắn của chatbot nằm bên trái */
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    margin: 5px 0;
+}
+
+/* Hiệu ứng typing cho bot */
+@keyframes typing {
+    0% {
+        content: '';
+    }
+    33% {
+        content: '.';
+    }
+    66% {
+        content: '..';
+    }
+    100% {
+        content: '...';
+    }
+}
+
+.typing-indicator {
+    font-style: italic;
+    color: gray;
+    display: inline-block;
+    width: 20px;
+    text-align: left;
+    animation: typing 1s steps(3, end) infinite;
+}
+
+.chatbot-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-input {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.chatbot-submit-btn {
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.chatbot-submit-btn:hover {
+    background-color: #0056b3;
+}
